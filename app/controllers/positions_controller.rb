@@ -1,4 +1,6 @@
+require 'pry'
 class PositionsController < ApplicationController
+    #Position belongs to  portfolio, has many coins
     before_action :authorize 
 
     def index
@@ -7,7 +9,9 @@ class PositionsController < ApplicationController
     end
 
     def create
-        position = current_user.positions.create(positions_params)
+        #pararams will include either coin_id or coin_attributes
+        portfolio = current_user.portfolio
+        position = portfolio.positions.create(positions_params)
         if position.valid?
             render json: position
         else 
@@ -27,7 +31,7 @@ class PositionsController < ApplicationController
     def destroy
         position = current_user.positions.find_by(id: params[:id]) 
         if position
-            trail.destroy
+            position.destroy
             head :no_content
         else
             render json: { error: "COULDNT FIND POSITION TO DELETE" }
@@ -51,7 +55,7 @@ class PositionsController < ApplicationController
     end
 
     def positions_params
-        params.permit(:id, :quantity, :cost_basis)
+        params.require(:position).permit(:id, :quantity, :cost_basis, :coin_id, coin_attributes: [name: params[:name], ticker: params[:ticker], image: params[:image], description: params[:description]])
     end
 
     def authorize

@@ -3,8 +3,8 @@ class CreateCoins < ActiveRecord::Migration[6.1]
     create_table :coins do |t|
       t.string :name
       t.string :ticker
-      t.integer :cost
-      t.integer :position_id
+      t.string :image
+      t.string :description
 
       t.timestamps
     end

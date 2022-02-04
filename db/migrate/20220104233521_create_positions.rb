@@ -4,6 +4,7 @@ class CreatePositions < ActiveRecord::Migration[6.1]
       t.integer :quantity
       t.integer :cost_basis
       t.integer :portfolio_id
+      t.integer :coin_id
 
       t.timestamps
     end

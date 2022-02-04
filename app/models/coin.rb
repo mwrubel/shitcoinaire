@@ -1,4 +1,5 @@
 class Coin < ApplicationRecord
-    #Coin belongs to many portfolios through positions,
-    belongs_to :portfolio, through :positions
+    #Coin has many positions, has many portfolios through positions
+    has_many :positions
+    has_many :portfolios, through: :positions
 end

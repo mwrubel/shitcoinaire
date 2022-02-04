@@ -1,13 +1,15 @@
 import React, { useState, useContext} from 'react'
 import { UserContext } from '../context/user'
 import { useNavigate } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
 
 const Signup = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errorsList, setErrorsList] = useState([])
-    const {signup} = useContext(UserContext)
+    const {signup, createPortfolio} = useContext(UserContext)
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
@@ -26,6 +28,7 @@ const Signup = () => {
             //if there's no errors, signup the user
             if (!user.errors) {
                 signup(user)
+                createPortfolio()
                 navigate('/')
             } else {
                 setUsername("")
@@ -39,6 +42,7 @@ const Signup = () => {
 
     return (
         <div>
+            please sign up
             <form onSubmit={handleSubmit}>
                 <label>Username: </label>
                 <input

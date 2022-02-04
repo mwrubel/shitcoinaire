@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_01_04_233545) do
   create_table "coins", force: :cascade do |t|
     t.string "name"
     t.string "ticker"
-    t.integer "cost"
-    t.integer "position_id"
+    t.string "image"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_233545) do
     t.integer "quantity"
     t.integer "cost_basis"
     t.integer "portfolio_id"
+    t.integer "coin_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

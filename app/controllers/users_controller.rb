@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    #User has one portfolio and has many coins through positions
     
     #index route
     def index

@@ -1,11 +1,15 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/user'
+import { useNavigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
 
 const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
-    const {login} = useContext(UserContext)
+    const {login, fetchPortfolio} = useContext(UserContext)
+    const navigate = useNavigate()
     
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -20,7 +24,9 @@ const Login = () => {
             .then(res => res.json())
             .then(user => {
                 if (!user.errors) {
-                    login(user)   
+                    login(user)
+                    fetchPortfolio()
+                    navigate('/')   
                 } else {
                     setError(user.error)
                 }     
@@ -29,6 +35,7 @@ const Login = () => {
 
     return (
         <>
+        please login
             <form onSubmit={handleSubmit}>
                 <label>Name: </label>
                 <input

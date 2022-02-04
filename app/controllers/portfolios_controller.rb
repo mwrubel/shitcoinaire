@@ -1,8 +1,20 @@
+require 'pry'
+
 class PortfoliosController < ApplicationController
+    #Portfolio belongs to user, has many positions
     before_action :authorize 
 
+    def show_all
+        users = User.all
+        if users
+            render json: users.portfolio
+        else
+            render json: { error: "NOT FOUND" }, status: :unauthorized
+        end
+    end
+
     def create
-        portfolio = current_user.portfolio.create(portfolio_params)
+        portfolio = current_user.create_portfolio(portfolio_params)
         if portfolio.valid?
             render json: portfolio
         else 
@@ -11,17 +23,16 @@ class PortfoliosController < ApplicationController
     end
 
     def show
-        portfolio = current_user.portfolio#.find_by(id: params[:id]) 
+        portfolio = current_user.portfolio
         if portfolio
             render json: portfolio
         else
             render json: { error: "NOT FOUND" }, status: :unauthorized
-            portfolio.create(cash_balance: 100000)
         end
     end
 
     def update
-        portfolio = current_user.portfolio#.find_by(id: params[:id]) 
+        portfolio = current_user.portfolio
         if portfolio
             portfolio.update(portfolio_params)
         else
